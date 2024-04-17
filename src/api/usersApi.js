@@ -14,7 +14,7 @@ export async function logIn({ username, password }) {
     try {
         const res = await fetch(`${URL}/login`, {
             method: "POST",
-            credentials: "omit",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
