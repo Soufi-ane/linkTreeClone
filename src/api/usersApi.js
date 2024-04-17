@@ -1,4 +1,4 @@
-const URL = "https://link-tree-clone-8yt9u6mjt-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://link-tree-clone-ju1ha5y98-soufianes-projects-8dbc43da.vercel.app";
 export async function getLoginState(WebToken) {
     if (!WebToken) return false;
     const data = await fetch(`${URL}/is/logedIn`, {
