@@ -24,7 +24,7 @@ function Create() {
         logInFunc.mutate({ username, password });
     };
 
-    const handleSignUp = (nm, uname, pass) => {
+    const handleSignUp = () => {
         if (name.length < 4) {
             toast.dismiss();
             return toast.error("The name is too short");
@@ -41,7 +41,7 @@ function Create() {
             toast.dismiss();
             return toast.error("The passwords don't match");
         }
-        SignUpFunc.mutate(nm, uname, pass);
+        SignUpFunc.mutate({ name, username, password });
         // console.log(SignUpFunc.data);
     };
 

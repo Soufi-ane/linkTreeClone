@@ -11,21 +11,21 @@ function App() {
     const [logedIn, setLogedIn] = useState(false);
     const webToken = localStorage.getItem("webToken");
 
-    const { data } = useQuery({
-        queryKey: ["logedInState"],
-        queryFn: async () => {
-            if (!webToken) return;
-            const data = await fetch(`https://linktreecloneapi.onrender.com/is/logedIn`, {
-                method: "GET",
-                headers: {
-                    authorization: String(webToken),
-                },
-            });
-            const state = await data.json();
-            setLogedIn(state.logedIn === true);
-            return state.logedIn === true;
-        },
-    });
+    // const { data } = useQuery({
+    //     queryKey: ["logedInState"],
+    //     queryFn: async () => {
+    //         if (!webToken) return;
+    //         const data = await fetch(`https://linktreecloneapi.onrender.com/is/logedIn`, {
+    //             method: "GET",
+    //             headers: {
+    //                 authorization: String(webToken),
+    //             },
+    //         });
+    //         const state = await data.json();
+    //         setLogedIn(state.logedIn === true);
+    //         return state.logedIn === true;
+    //     },
+    // });
 
     return (
         <LoginContext.Provider value={{ logedIn, setLogedIn }}>

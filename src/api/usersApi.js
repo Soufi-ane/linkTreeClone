@@ -1,4 +1,4 @@
-const URL = "https://link-tree-clone-3f2dslc8u-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://link-tree-clone-7euw79owa-soufianes-projects-8dbc43da.vercel.app";
 export async function getLoginState(WebToken) {
     if (!WebToken) return false;
     const data = await fetch(`${URL}/is/logedIn`, {
@@ -32,13 +32,13 @@ export async function logIn({ username, password }) {
     }
 }
 
-export async function SignUp(name, username, password) {
+export async function SignUp({ name, username, password }) {
     const res = await fetch(`${URL}/signup`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
         },
-        method: "POST",
+
         body: JSON.stringify({
             name: name,
             username: username,
@@ -46,7 +46,9 @@ export async function SignUp(name, username, password) {
             bio: "",
         }),
     });
+    const data = await res.json();
     console.log(res);
+    console.log(data);
     return res;
 }
 export async function getUserInfo(Token) {
