@@ -1,4 +1,4 @@
-const URL = "https://corsproxy.io/https://link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://corsproxy.io/?https://link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
 
 export async function addLink(token, userId, text, url, color, bg_color, radius) {
     try {
