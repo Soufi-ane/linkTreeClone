@@ -1,37 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getLoginState } from "./api/usersApi";
-import { useQuery } from "react-query";
+
 import { Outlet } from "react-router-dom";
 
 import { LoginContext } from "./Context/LoginContext";
+import toast from "react-hot-toast";
+import Loader from "./components/Loader";
 
 //localStorage.setItem('keyName', 'value');
 
 function App() {
-    const [logedIn, setLogedIn] = useState(false);
     const webToken = localStorage.getItem("webToken");
+    const [logedIn, setLogedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // const { data } = useQuery({
-    //     queryKey: ["logedInState"],
-    //     queryFn: async () => {
-    //         if (!webToken) return;
-    //         const data = await fetch(`https://linktreecloneapi.onrender.com/is/logedIn`, {
-    //             method: "GET",
-    //             headers: {
-    //                 authorization: String(webToken),
-    //             },
-    //         });
-    //         const state = await data.json();
-    //         setLogedIn(state.logedIn === true);
-    //         return state.logedIn === true;
-    //     },
-    // });
-
-    return (
-        <LoginContext.Provider value={{ logedIn, setLogedIn }}>
-            <Outlet />
-        </LoginContext.Provider>
-    );
+    const getLogin = async () => {
+        try {
+            const state = await getLoginState(webToken);
+            if (state?.logedIn) {
+                setLogedIn(true);
+            } else {
+                setLogedIn(false);
+            }
+        } catch (err) {
+            console.log(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    // if (isLoading) {
+    //     toast.dismiss();
+    //     toast.loading("Loading...");
+    // }
+    useEffect(() => {
+        getLogin();
+    }, []);
+    return <LoginContext.Provider value={{ logedIn, setLogedIn }}>{isLoading ? <Loader /> : <Outlet />}</LoginContext.Provider>;
 }
 
 export default App;

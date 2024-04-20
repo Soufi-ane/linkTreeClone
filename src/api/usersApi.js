@@ -1,20 +1,11 @@
-const URL = "https://link-tree-clone-ju1ha5y98-soufianes-projects-8dbc43da.vercel.app";
-export async function getLoginState(WebToken) {
-    if (!WebToken) return false;
-    const data = await fetch(`${URL}/is/logedIn`, {
-        method: "GET",
-        headers: {
-            authorization: String(WebToken),
-        },
-    });
-    return data?.logedIn === true;
-}
+const URL = "https://link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
+// const URL = "https://link-tree-clone-ju1ha5y98-soufianes-projects-8dbc43da.vercel.app";
 
 export async function logIn({ username, password }) {
     try {
         const res = await fetch(`${URL}/login`, {
             method: "POST",
-            credentials: "same-origin",
+            // credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -23,8 +14,8 @@ export async function logIn({ username, password }) {
         });
         const data = await res.json();
         if (data.status == "fail") throw new Error("Incorrect username or password");
-        console.log(res);
-        console.log(data);
+        // console.log(res);
+        // console.log(data);
         if (data?.status == "success") {
             return data || "meow";
         }
@@ -48,9 +39,8 @@ export async function SignUp({ name, username, password }) {
         }),
     });
     const data = await res.json();
-    console.log(res);
-    console.log(data);
-    return res;
+
+    return data;
 }
 export async function getUserInfo(Token) {
     try {
@@ -67,4 +57,51 @@ export async function getUserInfo(Token) {
     } catch (err) {
         throw new Error(err.message);
     }
+}
+export async function getLoginState(Token) {
+    let result = {
+        logedIn: false,
+        id: null,
+    };
+    if (!Token) return result;
+
+    const data = await fetch(`${URL}/is/logedIn`, {
+        method: "GET",
+        headers: {
+            authorization: String(Token),
+        },
+    });
+    const state = await data.json();
+
+    return state;
+}
+
+export async function checkUsername(username) {
+    const res = await fetch(`${URL}/getUsername/${username}`);
+    const data = await res.json();
+    return data;
+}
+
+export async function changeDetail(id, field, value, token) {
+    const res = await fetch(`${URL}/changeDetails/${id}/${field}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: String(token),
+        },
+        body: JSON.stringify({
+            newValue: value,
+        }),
+    });
+    return res;
+}
+
+export async function DeleteAccount(ID, token) {
+    const res = await fetch(`${URL}/deleteAccount/${ID}`, {
+        method: "DELETE",
+        headers: {
+            authorization: String(token),
+        },
+    });
+    return res;
 }
