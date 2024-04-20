@@ -1,4 +1,4 @@
-const URL = "https://cors-anywhere.herokuapp.com/link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://corsproxy.io/https://link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
 // const URL = "https://link-tree-clone-ju1ha5y98-soufianes-projects-8dbc43da.vercel.app";
 
 export async function logIn({ username, password }) {
