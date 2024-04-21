@@ -1,7 +1,7 @@
-const URL = "https://corsproxy.io/?https://link-tree-clone-eh7zyx8gt-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://link-tree-clone-gw8z6zb1y-soufianes-projects-8dbc43da.vercel.app";
 export async function editPage(id, font, bg, token) {
     const res = await fetch(`${URL}/editPage/${id}`, {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             authorization: String(token),
