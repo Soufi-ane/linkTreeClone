@@ -1,5 +1,4 @@
-const URL = "https://corsproxy.io/?https://link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
-// const URL = "https://link-tree-clone-ju1ha5y98-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://corsproxy.io/?https://link-tree-clone-eh7zyx8gt-soufianes-projects-8dbc43da.vercel.app";
 
 export async function logIn({ username, password }) {
     try {
@@ -84,7 +83,7 @@ export async function checkUsername(username) {
 
 export async function changeDetail(id, field, value, token) {
     const res = await fetch(`${URL}/changeDetails/${id}/${field}`, {
-        method: "PATCH",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
             authorization: String(token),
@@ -98,7 +97,7 @@ export async function changeDetail(id, field, value, token) {
 
 export async function DeleteAccount(ID, token) {
     const res = await fetch(`${URL}/deleteAccount/${ID}`, {
-        method: "DELETE",
+        method: "POST",
         headers: {
             authorization: String(token),
         },

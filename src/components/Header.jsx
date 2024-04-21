@@ -35,7 +35,8 @@ function Header() {
             ) : (
                 <div className="text-red-500"></div>
             )}
-            <div className=" font-medium">{inSettings ? "Settings" : inAccount ? "Account" : ""}</div>
+            {logedIn && <div className="pr-6 pt-1 font-medium">{inSettings ? "Settings" : inAccount ? "Account" : ""}</div>}
+
             {
                 <div>
                     {logedIn && !inAccount && !inSettings && (

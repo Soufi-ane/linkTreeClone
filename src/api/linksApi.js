@@ -1,4 +1,4 @@
-const URL = "https://corsproxy.io/?https://link-tree-clone-1kn77ibwn-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://corsproxy.io/?https://link-tree-clone-eh7zyx8gt-soufianes-projects-8dbc43da.vercel.app";
 
 export async function addLink(token, userId, text, url, color, bg_color, radius) {
     try {
@@ -24,7 +24,7 @@ export async function addLink(token, userId, text, url, color, bg_color, radius)
 }
 export async function deleteLink(userID, linkID, token) {
     const res = await fetch(`${URL}/deleteLink/${userID}`, {
-        method: "DELETE",
+        method: "POST",
 
         headers: {
             authorization: String(token),
