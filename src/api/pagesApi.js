@@ -1,4 +1,4 @@
-const URL = "https://link-tree-clone-qbcvh3ay5-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://link-tree-clone-api.vercel.app";
 export async function editPage(id, font, bg, token) {
     const res = await fetch(`${URL}/editPage/${id}`, {
         method: "PATCH",
