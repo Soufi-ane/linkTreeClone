@@ -1,4 +1,4 @@
-const URL = "https://link-tree-clone-gw8z6zb1y-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://link-tree-clone-api.vercel.app/";
 
 export async function logIn({ username, password }) {
     try {

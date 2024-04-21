@@ -1,4 +1,4 @@
-const URL = "https://link-tree-clone-gw8z6zb1y-soufianes-projects-8dbc43da.vercel.app";
+const URL = "https://link-tree-clone-api.vercel.app/";
 
 export async function addLink(token, userId, text, url, color, bg_color, radius) {
     try {
@@ -7,7 +7,6 @@ export async function addLink(token, userId, text, url, color, bg_color, radius)
             headers: {
                 authorization: String(token),
                 "Content-Type": "application/json",
-                "x-cors-api-key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
             },
             body: JSON.stringify({
                 text,
