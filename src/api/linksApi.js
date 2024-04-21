@@ -1,4 +1,4 @@
-const URL = "https://link-tree-clone-api.vercel.app";
+const URL = "https://crossorigin.me/https://link-tree-clone-api.vercel.app";
 
 export async function addLink(token, userId, text, url, color, bg_color, radius) {
     try {
