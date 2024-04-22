@@ -19,7 +19,14 @@ function Create() {
     const [isLoading, setIsLoading] = useState(false);
     let data;
     const handleLogIn = async () => {
-        // logInFunc.mutate({ username, password });
+        if (username.length < 4) {
+            toast.dismiss();
+            return toast.error("The username is too short");
+        }
+        if (password == "") {
+            toast.dismiss();
+            return toast.error("Provide a password");
+        }
         try {
             setIsLoading(true);
             data = await logIn({ username, password });
@@ -33,7 +40,7 @@ function Create() {
             }
         } catch (err) {
             toast.dismiss();
-            toast.error(err.message);
+            toast.error("Something went wrong");
             setIsLoading(false);
         }
     };
@@ -90,135 +97,139 @@ function Create() {
             }
         }
     };
-    if (!isLoading) {
-        return (
-            <div className="flex -flex-col items-center justify-center">
-                {logedIn && <CreatePage />}
+    if (isLoading) {
+        toast.dismiss();
+        toast.loading("Loading...");
+    }
 
-                {!logedIn && (
-                    <div className={`flex flex-col items-center w-11/12 py-10 pt-20`}>
-                        <h3 className={`text-xl text-center pb-5 font-medium`}>
-                            Create one link for
-                            <br />
-                            All your links
-                        </h3>
-                        <h2 className={`font-medium pb-5 ${isSignUp ? "" : "pt-4 pb-5"}`}>{isSignUp ? "Create an Account" : "Log in to Start"}</h2>
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                            }}
-                            className="flex flex-col w-9/12 gap-2 ">
-                            {isSignUp && (
-                                <>
-                                    <label htmlFor="name">Name</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        value={name}
-                                        onChange={(e) => {
-                                            setName(e.target.value);
-                                        }}
-                                        placeholder="your name"
-                                        className="bg-stone-200 h-10 px-3"
-                                    />
-                                </>
-                            )}
-                            <label htmlFor="username">Username</label>
-                            <input
-                                type="text"
-                                id="username"
-                                value={username}
-                                onChange={(e) => {
-                                    setUsername(e.target.value);
-                                }}
-                                placeholder="yourUserName"
-                                className="bg-stone-200 h-10 px-3"
-                            />
-                            <label htmlFor="password">Password</label>
-                            <span className="flex items-center gap-2">
+    return (
+        <div className="flex flex-col items-center justify-center">
+            {logedIn && <CreatePage />}
+
+            {!logedIn && (
+                <div className={`flex  flex-col items-center w-11/12 pt-10`}>
+                    <h3 className={`text-xl text-center pb-5 font-medium`}>
+                        Create one link for
+                        <br />
+                        All your links
+                    </h3>
+                    <h2 className={`font-medium pb-5 ${isSignUp ? "" : "pt-16 pb-5"}`}>{isSignUp ? "Create an Account" : "Log in"}</h2>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                        }}
+                        className="flex flex-col w-9/12 sm:w-6/12 md:w-4/12 max-w-[18.5rem] gap-2 ">
+                        {isSignUp && (
+                            <>
+                                <label htmlFor="name">Name</label>
                                 <input
-                                    type={isShown ? "text" : "password"}
-                                    id="password"
-                                    value={password}
+                                    type="text"
+                                    id="name"
+                                    value={name}
                                     onChange={(e) => {
-                                        setPassword(e.target.value);
+                                        setName(e.target.value);
                                     }}
-                                    placeholder="..........................."
-                                    className={`bg-stone-200  px-3 h-10 w-11/12 px-31 
+                                    placeholder="your name"
+                                    className="bg-stone-200 h-9 px-3"
+                                />
+                            </>
+                        )}
+                        <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                            }}
+                            placeholder="yourUserName"
+                            className="bg-stone-200 h-9 px-3"
+                        />
+                        <label htmlFor="password">Password</label>
+                        <span className="flex items-center gap-2">
+                            <input
+                                type={isShown ? "text" : "password"}
+                                id="password"
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                }}
+                                placeholder="..........................."
+                                className={`bg-stone-200  px-3 h-9 w-11/12 px-31 
                                 ${isShown ? "" : "text-xl pt-1"}
                                   `}
-                                />
+                            />
 
-                                <span
-                                    onClick={() => {
-                                        setIsShown((curr) => !curr);
-                                    }}
-                                    className="text-xl text-stone-500">
-                                    {!isShown ? <IoMdEye /> : <IoMdEyeOff />}
-                                </span>
+                            <span
+                                onClick={() => {
+                                    setIsShown((curr) => !curr);
+                                }}
+                                className="text-xl cursor-pointer text-stone-500">
+                                {!isShown ? <IoMdEye /> : <IoMdEyeOff />}
                             </span>
-                            {isSignUp && (
-                                <>
-                                    <label htmlFor="passwordConfirm">Confirm password</label>
-                                    <span className="flex items-center gap-2">
-                                        <input
-                                            type={isShownConfirm ? "text" : "password"}
-                                            id="passwordConfirm"
-                                            value={confirmPassword}
-                                            onChange={(e) => {
-                                                setConfirmPassword(e.target.value);
-                                            }}
-                                            placeholder="..........................."
-                                            className={`bg-stone-200  px-3 h-10 w-11/12 px-31 
+                        </span>
+                        {isSignUp && (
+                            <>
+                                <label htmlFor="passwordConfirm">Confirm password</label>
+                                <span className="flex items-center gap-2">
+                                    <input
+                                        type={isShownConfirm ? "text" : "password"}
+                                        id="passwordConfirm"
+                                        value={confirmPassword}
+                                        onChange={(e) => {
+                                            setConfirmPassword(e.target.value);
+                                        }}
+                                        placeholder="..........................."
+                                        className={`bg-stone-200  px-3 h-9 w-11/12 px-31 
                                 ${isShownConfirm ? "" : "text-xl pt-1"}
                                 `}
-                                        />
+                                    />
 
-                                        <span
-                                            onClick={() => {
-                                                setIsShownConfirm((curr) => !curr);
-                                            }}
-                                            className="text-xl text-stone-500">
-                                            {!isShownConfirm ? <IoMdEye /> : <IoMdEyeOff />}
-                                        </span>
-                                    </span>
-                                </>
-                            )}
-                            <button
-                                onClick={() => {
-                                    if (!isSignUp) {
-                                        handleLogIn();
-                                    } else {
-                                        handleSignUp();
-                                    }
-                                }}
-                                className="mt-5 py-2 font-medium text-stone-50 bg-blue-600 rounded-md">
-                                {isSignUp ? "Sign up" : "Log in"}
-                            </button>
-                            <span className="text-sm pt-8 flex flex-col items-center">
-                                <p>{isSignUp ? "Already have an Account ?" : "You don't have an account ?"}</p>
-
-                                <span className="flex items-center gap-2">
-                                    <button
-                                        className="text-blue-700"
+                                    <span
                                         onClick={() => {
-                                            setIsSignUp((curr) => !curr);
-                                            setPassword("");
-                                            setUsername("");
-                                            setIsShown(false);
-                                        }}>
-                                        {isSignUp ? "Log in" : "Sign up"}
-                                    </button>
+                                            setIsShownConfirm((curr) => !curr);
+                                        }}
+                                        className="text-xl text-stone-500">
+                                        {!isShownConfirm ? <IoMdEye /> : <IoMdEyeOff />}
+                                    </span>
                                 </span>
+                            </>
+                        )}
+                        <button
+                            onClick={() => {
+                                if (isLoading) {
+                                    return;
+                                }
+                                if (!isSignUp) {
+                                    handleLogIn();
+                                } else {
+                                    handleSignUp();
+                                }
+                            }}
+                            className="mt-5 h-9 font-medium text-stone-50 bg-blue-600 rounded-md">
+                            {isSignUp ? "Sign up" : "Log in"}
+                        </button>
+                        <span className="text-sm pt-8 flex flex-col items-center">
+                            <p>{isSignUp ? "Already have an Account ?" : "You don't have an account ?"}</p>
+
+                            <span className="flex items-center gap-2">
+                                <button
+                                    className="text-blue-700"
+                                    onClick={() => {
+                                        setIsSignUp((curr) => !curr);
+                                        setPassword("");
+                                        setUsername("");
+                                        setIsShown(false);
+                                    }}>
+                                    {isSignUp ? "Log in" : "Sign up"}
+                                </button>
                             </span>
-                        </form>
-                    </div>
-                )}
-            </div>
-        );
-    } else {
-        return <Loader />;
-    }
+                        </span>
+                    </form>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Create;

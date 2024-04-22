@@ -6,20 +6,20 @@
 @tailwind utilities;
 
 input[type="range"]::-webkit-slider-runnable-track {
-    background: black;
-    height: 0.3rem;
+    background: #e7e5e4;
+    height: 0.6rem;
 }
 input[type="range"]::-webkit-slider-runnable-track {
     border-radius: 0.5rem;
 }
 
 input[type="range"]::-moz-range-track {
-    height: 0.5rem;
+    height: 0rem;
 }
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    margin-top: -6px;
+    margin-top: -4px;
     background-color: #00bbff;
     height: 2rem;
     width: 1rem;

@@ -32,7 +32,7 @@ function Account() {
         try {
             setIsLoading(true);
             localStorage.removeItem("webToken");
-            navigate("/linkTreeClone/");
+            navigate("/");
             setLogedIn(false);
         } catch (err) {
             toast.dismiss();
@@ -113,21 +113,21 @@ function Account() {
             <div className="flex flex-col items-center gap-5 py-28">
                 <span className="">
                     <p className="mb-2 text-sm">LinkTree URL</p>
-                    <span className="flex items-center gap-5">
-                        <p className="bg-stone-200 w-60 rounded-sm overflow-x-scroll py-2 px-2 ">{`link-tree-clone-api.vercel.app/${mainData?.username}`}</p>
-                        <button onClick={HandleCopy} className="bg-stone-200 text-lg p-3 rounded-sm">
+                    <span className="flex items-center gap-3">
+                        <p className="bg-stone-200 w-60 sm:w-[21rem] lg:w-[36rem] rounded-sm overflow-x-scroll overflow-y-hidden h-9 whitespace-nowrap px-2 ">{`link-tree-clone-api.vercel.app/${mainData?.username}`}</p>
+                        <button onClick={HandleCopy} className="bg-stone-200 text-lg p-2 rounded-sm">
                             <MdOutlineContentCopy />
                         </button>
                     </span>
                 </span>
 
                 <span className="flex items-center gap-3">
-                    <p className="bg-stone-200 rounded-sm py-2 w-48 px-2">{`@${mainData?.username}`}</p>
+                    <p className="bg-stone-200 rounded-sm h-9 py-1 w-48 sm:w-[17.6rem] lg:w-[32.45rem] px-2">{`@${mainData?.username}`}</p>
                     <button
                         onClick={() => {
                             setIsModal(true);
                         }}
-                        className="bg-stone-200 font-medium text-red-700 rounded-sm py-2 px-4">
+                        className="bg-stone-200 font-medium text-red-700 rounded-sm h-9 px-4">
                         Log out
                     </button>
                 </span>
@@ -135,7 +135,7 @@ function Account() {
                     onClick={() => {
                         setIsDeleting(true);
                     }}
-                    className="text-red-900 font-medium bg-red-300 py-3 rounded-md w-[85vw]">
+                    className="text-red-900 font-medium bg-red-300 h-9 rounded-md w-[18.5rem] sm:w-[24rem] lg:w-[39rem]">
                     Delete Account
                 </button>
             </div>

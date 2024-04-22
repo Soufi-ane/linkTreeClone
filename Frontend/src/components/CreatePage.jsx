@@ -40,10 +40,10 @@ function CreatePage() {
     }
 
     return (
-        <>
+        <div className="h-[90dvh]">
             <AddLink rerender={Func} ID={myData?.data?.pageData?.id} />
             <div className="text-stone-50 overflow-y-scroll">{!isLoading && <Page rerender={Func} data={myData} />}</div>
-        </>
+        </div>
     );
 }
 
@@ -54,12 +54,11 @@ function Page({ rerender, data }) {
     const [currentLink, setCurrentLink] = useState("");
     const [loading, setLoading] = useState(false);
     const pageData = data?.data?.pageData;
-    const linksWitdth = `85vw`;
-    const linksHeight = `45px`;
 
     const HandleDeleteLink = async () => {
         setLoading(true);
         try {
+            setIsModal(false);
             const res = await deleteLink(pageData?.id, currentLink, webToken);
             if (res?.status === 204) {
                 toast.dismiss();
@@ -69,7 +68,7 @@ function Page({ rerender, data }) {
             console.log(err);
         } finally {
             setLoading(false);
-            setIsModal(false);
+
             rerender();
         }
     };
@@ -79,7 +78,7 @@ function Page({ rerender, data }) {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-[100dvh] ">
             {isModal && (
                 <Modal
                     text="Delete"
@@ -99,13 +98,13 @@ function Page({ rerender, data }) {
                     backgroundColor: pageData?.background || "white",
                     fontFamily: pageData?.font || "Poppins",
                 }}
-                className=" h-[100dvh] py-10 overflow-y-scroll  w-[100vw] flex flex-col items-center gap-10">
+                className="  py-10 overflow-y-scroll  w-[99vw] flex flex-col items-center gap-10">
                 <span className={` ${pageData?.background == "#fafaf9" ? "text-stone-600" : "text-stone-50"} text-center pt-5 w-[80vw]`}>
                     <h2 className="font-medium">{pageData?.name}</h2>
                     <h4 className="text-sm">{`@${pageData?.username}`}</h4>
-                    <p className="mt-5">{pageData?.bio}</p>
+                    <p className="pt-5">{pageData?.bio}</p>
                 </span>
-                <div className="flex items-center flex-col gap-5 justify-center">
+                <div className="flex  items-center flex-col gap-5 justify-center">
                     {!data?.data?.links?.length > 0 && <div className={` ${pageData?.background == "#fafaf9" ? "text-stone-600" : "text-stone-50"} pt-56`}>No links yet</div>}
                     {data &&
                         data?.data?.links?.length > 0 &&
@@ -116,15 +115,13 @@ function Page({ rerender, data }) {
                                     setIsModal(true);
                                     setCurrentLink(link.id);
                                 }}
-                                className="text-center pt-9 font-medium"
+                                className="text-center w-72 sm:w-[23rem] lg:w-[35rem] 2xl:w-[40rem] max-w-[36rem] pt-9 font-medium"
                                 href="#"
                                 style={{
                                     color: link.color,
                                     backgroundColor: link.bg_color,
                                     borderRadius: link.radius,
                                     padding: "10px",
-                                    width: linksWitdth,
-                                    height: linksHeight,
                                 }}
                                 key={index}>
                                 {link.text}
@@ -215,7 +212,7 @@ function AddLink({ rerender, ID }) {
                         className="bg-blue-700 bottom-8 right-4 absolute font-medium h-14 w-28 rounded-md text-stone-50">
                         {isLoading ? "Loading.." : "Create"}
                     </button>
-                    <div className="bg-stone-100 h-[30rem] w-[100dvw]">
+                    <div className="bg-stone-100 h-[30rem] w-[100vw]">
                         <form
                             className="py-5 flex gap-3 justify-center flex-col items-center"
                             onSubmit={(e) => {

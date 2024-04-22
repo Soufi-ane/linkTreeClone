@@ -12,9 +12,9 @@ function Header() {
     const [inAccount, setInAccount] = useState(false);
     const navigate = useNavigate();
     return (
-        <div className="flex w-screen h-12 items-center fixed px-3 py-2 justify-between">
+        <div className="flex w-screen h-12 items-center fixed px-3 sm:px-5 py-2 justify-between  md:justify-start">
             {logedIn ? (
-                <div>
+                <div className="">
                     <IoSettingsOutline
                         className={`text-3xl ${(inSettings || inAccount) && "hidden"} text-stone-700`}
                         onClick={() => {
@@ -35,7 +35,7 @@ function Header() {
             ) : (
                 <div className="text-red-500"></div>
             )}
-            {logedIn && <div className="pr-6 pt-1 font-medium">{inSettings ? "Settings" : inAccount ? "Account" : ""}</div>}
+            {logedIn && <div className="pr-6 md:pr-4 pt-1 md:pt-0 font-medium">{inSettings ? "Settings" : inAccount ? "Account" : ""}</div>}
 
             {
                 <div>

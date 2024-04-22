@@ -79,7 +79,7 @@ function Settings({ data }) {
         return <Loader />;
     }
     return (
-        <div className="flex items-center py-20 px-7">
+        <div className="flex items-center justify-center py-20 px-7">
             <div>
                 <span>
                     <Form
@@ -110,7 +110,7 @@ function Settings({ data }) {
                         <label className="text-sm">Bio</label>
                         <span className="flex items-center gap-3  justify-center">
                             <textarea
-                                className="w-56 h-28 rounded-sm py-2 px-3 bg-stone-300 resize-y max-h-44"
+                                className="w-56 md:w-80 xl:w-[30rem] rounded-sm py-2 px-3 bg-stone-300 resize-y min-h-10 max-h-36"
                                 value={bio}
                                 maxLength={150}
                                 onChange={(e) => {
@@ -134,7 +134,7 @@ function Settings({ data }) {
                                 style={{
                                     fontFamily: font,
                                 }}
-                                className="h-10 text-sm  rounded-sm bg-stone-300 px-3 w-56"
+                                className="h-10 text-sm  rounded-sm bg-stone-300 px-3 w-56 md:w-80 xl:w-[30rem]"
                                 value={font}
                                 onChange={(e) => {
                                     setFont(e.target.value);
@@ -145,42 +145,42 @@ function Settings({ data }) {
                                         fontFamily: "Poppins",
                                     }}
                                     value="Poppins">
-                                    Try this font
+                                    Poppins
                                 </option>
                                 <option
                                     style={{
                                         fontFamily: "Roboto Mono",
                                     }}
                                     value="Roboto Mono">
-                                    Try this font
+                                    Roboto Mono
                                 </option>
                                 <option
                                     style={{
                                         fontFamily: "Oswald",
                                     }}
                                     value="Oswald">
-                                    Try this font
+                                    Oswald
                                 </option>
                                 <option
                                     style={{
                                         fontFamily: "Ubuntu",
                                     }}
                                     value="Ubuntu">
-                                    Try this font
+                                    Ubuntu
                                 </option>
                                 <option
                                     style={{
                                         fontFamily: "Fuzzy Bubbles",
                                     }}
                                     value="Fuzzy Bubbles">
-                                    Try this font
+                                    Fuzzy Bubbles
                                 </option>
                                 <option
                                     style={{
                                         fontFamily: "Arial",
                                     }}
                                     value="Arial">
-                                    Try this font
+                                    Arial
                                 </option>
                             </select>
                             <button
@@ -196,7 +196,7 @@ function Settings({ data }) {
                         <label className="text-sm">LinkTree theme</label>
                         <span className="flex items-center gap-3  justify-center">
                             <select
-                                className="h-10  text-sm rounded-sm bg-stone-300 px-3 w-56"
+                                className="h-10  text-sm rounded-sm bg-stone-300 px-3 w-56 md:w-80 xl:w-[30rem]"
                                 value={theme}
                                 onChange={(e) => {
                                     setTheme(e.target.value);
@@ -226,7 +226,7 @@ function Form({ text, buttonAction, value, update, type }) {
             <label className="text-sm mt-2">{text}</label>
             <span className="flex items-center gap-3  justify-center">
                 <input
-                    className="w-56 h-10 rounded-sm px-3 bg-stone-300"
+                    className="w-56 md:w-80 xl:w-[30rem] h-10 rounded-sm px-3 bg-stone-300"
                     type={type}
                     maxLength={text == "Username" || text == "Name" ? 20 : 100}
                     value={value}
