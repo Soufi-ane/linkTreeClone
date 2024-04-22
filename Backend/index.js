@@ -2,6 +2,7 @@ import express from "express";
 import { promisify } from "util";
 
 const app = express();
+app.use(express.static("dist"));
 
 import { getAllUsers, getUser, getUserByUsername, createUser, getLinkTree, addLink, editPage, deleteLink, changeUserDetails, deleteUser, getUserInfo } from "./database.js";
 import bcrypt from "bcryptjs";
@@ -12,7 +13,7 @@ dotenv.config();
 import bodyParser from "body-parser";
 
 app.use(bodyParser.json());
-app.get("/users", async (req, res) => {
+app.get("/api/users", async (req, res) => {
     const users = await getAllUsers();
     res.json({
         results: users.length,
@@ -20,7 +21,7 @@ app.get("/users", async (req, res) => {
     });
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
     const { name, username, password, bio } = req.body;
     const salt = await bcrypt.genSalt(14);
     const hashedPass = await bcrypt.hash(password, salt);
@@ -39,7 +40,7 @@ app.post("/signup", async (req, res) => {
         });
     }
 });
-app.get("/getUsername/:username", async (req, res, next) => {
+app.get("/api/getUsername/:username", async (req, res, next) => {
     const { username } = req.params;
     try {
         const user = await getUserByUsername(username);
@@ -50,7 +51,7 @@ app.get("/getUsername/:username", async (req, res, next) => {
         next(err.message);
     }
 });
-app.get("/:username", async (req, res) => {
+app.get("/api/:username", async (req, res) => {
     const { username } = req.params;
     const [pageData, links] = await getLinkTree(username);
     return res.json({
@@ -61,7 +62,7 @@ app.get("/:username", async (req, res) => {
         },
     });
 });
-app.get("/getUserInfo/byId", checkUser, async (req, res, next) => {
+app.get("/api/getUserInfo/byId", checkUser, async (req, res, next) => {
     const { authorization } = req.headers;
     const encoded = await promisify(jwt.verify)(authorization, process.env.SECRET);
     const userId = encoded.id;
@@ -82,7 +83,7 @@ app.get("/getUserInfo/byId", checkUser, async (req, res, next) => {
         });
     }
 });
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
     const [user, page, links] = await getUser(username);
     if (!user || !(await bcrypt.compare(password, user.password)))
@@ -107,7 +108,7 @@ app.post("/login", async (req, res) => {
     });
 });
 
-app.post("/addLink/:userId", checkUser, async (req, res) => {
+app.post("/api/addLink/:userId", checkUser, async (req, res) => {
     const { userId } = req.params;
     const { text, url, color, bg_color, radius } = req.body;
     const err = await addLink({ userId, text, url, color, bg_color, radius });
@@ -120,7 +121,7 @@ app.post("/addLink/:userId", checkUser, async (req, res) => {
     }
 });
 
-app.delete("/deleteLink/:userId", checkUser, async (req, res, next) => {
+app.delete("/api/deleteLink/:userId", checkUser, async (req, res, next) => {
     const { userId } = req.params;
     const { linkId } = req.body;
     const err = await deleteLink({ userId, linkId });
@@ -130,7 +131,7 @@ app.delete("/deleteLink/:userId", checkUser, async (req, res, next) => {
         return next(err);
     }
 });
-app.delete("/deleteAccount/:userId", checkUser, async (req, res, next) => {
+app.delete("/api/deleteAccount/:userId", checkUser, async (req, res, next) => {
     const { userId } = req.params;
     const err = await deleteUser(userId);
     if (!err) {
@@ -140,7 +141,7 @@ app.delete("/deleteAccount/:userId", checkUser, async (req, res, next) => {
     }
 });
 
-app.patch("/editPage/:userId", checkUser, async (req, res, next) => {
+app.patch("/api/editPage/:userId", checkUser, async (req, res, next) => {
     const { userId } = req.params;
     const { font, background } = req.body;
     const err = await editPage({ userId, font, background });
@@ -148,7 +149,7 @@ app.patch("/editPage/:userId", checkUser, async (req, res, next) => {
         res.status(201).end();
     } else return next(err);
 });
-app.patch("/changeDetails/:userId/:field", checkUser, async (req, res, next) => {
+app.patch("/api/changeDetails/:userId/:field", checkUser, async (req, res, next) => {
     const { userId, field } = req.params;
     const { newValue } = req.body;
     let value = newValue;
@@ -165,7 +166,7 @@ app.patch("/changeDetails/:userId/:field", checkUser, async (req, res, next) => 
     }
 });
 
-app.get("/is/logedIn", checkUser, async (req, res) => {
+app.get("/api/is/logedIn", checkUser, async (req, res) => {
     const { authorization } = req.headers;
     const encoded = await promisify(jwt.verify)(authorization, process.env.SECRET);
     res.json({
@@ -174,13 +175,6 @@ app.get("/is/logedIn", checkUser, async (req, res) => {
     });
 });
 
-// app.get("/addCol/now", async (req, res) => {
-//     const data = await addCol();
-//     res.json({
-//         data,
-//     });
-// });
-
 app.use((err, req, res, next) => {
     res.status(400).json({
         status: "fail",
@@ -188,8 +182,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-const port = 3307;
-// const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`app listening on port ${port}`);
 });
