@@ -2,7 +2,7 @@ import express from "express";
 import { promisify } from "util";
 
 const app = express();
-app.use(express.static("dist"));
+app.use(express.static(`${__dirname}/dist`));
 
 import { getAllUsers, getUser, getUserByUsername, createUser, getLinkTree, addLink, editPage, deleteLink, changeUserDetails, deleteUser, getUserInfo } from "./database.js";
 import bcrypt from "bcryptjs";
