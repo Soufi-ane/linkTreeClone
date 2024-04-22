@@ -1,6 +1,7 @@
 import express from "express";
 import { promisify } from "util";
-
+import { dirname } from "path";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.static(`${__dirname}/dist`));
 
