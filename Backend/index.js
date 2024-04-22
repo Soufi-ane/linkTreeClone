@@ -22,7 +22,9 @@ app.get("/api/users", async (req, res) => {
         users,
     });
 });
-
+app.get("/:username", (req, res) => {
+    res.sendFile(`${__dirname}/dist/index.html`);
+});
 app.post("/api/signup", async (req, res) => {
     const { name, username, password, bio } = req.body;
     const salt = await bcrypt.genSalt(14);
