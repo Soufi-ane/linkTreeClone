@@ -65,7 +65,7 @@ function Account() {
     };
     const HandleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(`http://localhost:5173/${mainData?.username}`);
+            await navigator.clipboard.writeText(`https://link-tree-clone-api.vercel.app/${mainData?.username}`);
             toast.dismiss();
             toast.success("Copied");
         } catch {
@@ -114,7 +114,7 @@ function Account() {
                 <span className="">
                     <p className="mb-2 text-sm">LinkTree URL</p>
                     <span className="flex items-center gap-5">
-                        <p className="bg-stone-200 w-60 rounded-sm overflow-x-scroll py-2 px-2 ">{`http://localhost:5173/${mainData?.username}`}</p>
+                        <p className="bg-stone-200 w-60 rounded-sm overflow-x-scroll py-2 px-2 ">{`link-tree-clone-api.vercel.app/${mainData?.username}`}</p>
                         <button onClick={HandleCopy} className="bg-stone-200 text-lg p-3 rounded-sm">
                             <MdOutlineContentCopy />
                         </button>

@@ -97,12 +97,12 @@ function Create() {
 
                 {!logedIn && (
                     <div className={`flex flex-col items-center w-11/12 py-10 pt-20`}>
-                        <h3 className={`text-xl text-center pb-10 font-medium`}>
+                        <h3 className={`text-xl text-center pb-5 font-medium`}>
                             Create one link for
                             <br />
                             All your links
                         </h3>
-                        <h2 className={`font-medium pb-5 ${isSignUp ? "" : "pt-6 mb-5"}`}>{isSignUp ? "Create an Account" : "Log in to Start"}</h2>
+                        <h2 className={`font-medium pb-5 ${isSignUp ? "" : "pt-4 pb-5"}`}>{isSignUp ? "Create an Account" : "Log in to Start"}</h2>
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
