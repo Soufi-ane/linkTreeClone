@@ -201,7 +201,7 @@ function AddLink({ rerender, ID }) {
                             setRadius(10);
                             setUrl("");
                         }}
-                        className="bg-stone-200 bottom-8 left-5 absolute font-medium h-14 w-28 rounded-md text-stone-800">
+                        className="bg-stone-200 bottom-8 left-5 sm:left-36 md:left-60 lg:left-80 absolute font-medium h-14 w-28 rounded-md text-stone-800">
                         Cancel
                     </button>
                     <button
@@ -209,12 +209,12 @@ function AddLink({ rerender, ID }) {
                             if (isLoading) return;
                             else HandleCreateLink();
                         }}
-                        className="bg-blue-700 bottom-8 right-4 absolute font-medium h-14 w-28 rounded-md text-stone-50">
+                        className="bg-blue-700 bottom-8 right-5 sm:right-36 md:right-60 lg:right-80 absolute font-medium h-14 w-28 rounded-md text-stone-50">
                         {isLoading ? "Loading.." : "Create"}
                     </button>
-                    <div className="bg-stone-100 h-[30rem] w-[100vw]">
+                    <div className="bg-stone-100 h-[30rem] w-[100vw] ">
                         <form
-                            className="py-5 flex gap-3 justify-center flex-col items-center"
+                            className="py-5 flex gap-3 sm:px-20 md:px-36 lg:px-56 xl:px-80 justify-center flex-col items-center"
                             onSubmit={(e) => {
                                 e.preventDefault();
                             }}>
@@ -229,7 +229,7 @@ function AddLink({ rerender, ID }) {
                                 href="#">
                                 {text}
                             </a>
-                            <label className="px-5 mr-auto" htmlFor="url">
+                            <label className="px-5 lg:px-8 mr-auto" htmlFor="url">
                                 URL
                             </label>
                             <input
@@ -244,7 +244,7 @@ function AddLink({ rerender, ID }) {
                                 placeholder="www.google.com"
                             />
 
-                            <span className="flex items-center gap-5 px-2">
+                            <span className="flex items-center gap-5 px-2 lg:px-0">
                                 <span className="flex items-center flex-col">
                                     <label className="px-3  mr-auto" htmlFor="text">
                                         Text

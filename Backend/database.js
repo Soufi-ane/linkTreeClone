@@ -27,7 +27,7 @@ export async function findUser(ID) {
 export async function getUserInfo(ID) {
     let con;
     try {
-        con = con = await pool.getConnection();
+        con = await pool.getConnection();
         const [links] = await con.query("SELECT links.id , url , bg_color , radius , color, text FROM users JOIN links ON links.user_id = users.id WHERE users.id = ?  ;", [ID]);
         const [[pageData]] = await con.query("SELECT users.id , name , username, background , font ,bio FROM users JOIN pages ON pages.user_id = users.id WHERE users.id = ?", [ID]);
         con.release();
@@ -93,7 +93,7 @@ export async function addLink({ userId, text, url, color, bg_color, radius }) {
 export async function deleteLink({ userId, linkId }) {
     let con;
     try {
-        con = con = await pool.getConnection();
+        con = await pool.getConnection();
         await con.query("DELETE FROM links WHERE id = ? AND user_id = ? ; ", [linkId, Number(userId)]);
         con.release();
     } catch {
@@ -104,7 +104,7 @@ export async function deleteLink({ userId, linkId }) {
 export async function editPage({ userId, font, background }) {
     let con;
     try {
-        con = con = await pool.getConnection();
+        con = await pool.getConnection();
         await con.query("UPDATE pages SET font = ? , background = ? WHERE user_id = ? ;", [font, background, userId]);
         con.release();
     } catch {
@@ -115,7 +115,7 @@ export async function editPage({ userId, font, background }) {
 export async function changeUserDetails({ field, userId, value }) {
     let con;
     try {
-        con = con = await pool.getConnection();
+        con = await pool.getConnection();
         await con.query(`UPDATE ${field == "font" || field == "background" ? "pages" : "users"} SET ${field} = ? WHERE ${field == "font" || field == "background" ? "user_id" : "id"} = ? ; `, [
             value,
             userId,
@@ -130,8 +130,8 @@ export async function changeUserDetails({ field, userId, value }) {
 export async function deleteUser(userId) {
     let con;
     try {
-        con = con = await pool.getConnection();
-        await pool.query("DELETE FROM users WHERE id = ? ", [userId]);
+        con = await pool.getConnection();
+        await con.query("DELETE FROM users WHERE id = ? ", [userId]);
         con.release();
     } catch {
         return new Error("Failed to delete user Account");
