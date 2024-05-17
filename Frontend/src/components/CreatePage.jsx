@@ -98,7 +98,7 @@ function Page({ rerender, data }) {
                     backgroundColor: pageData?.background || "white",
                     fontFamily: pageData?.font || "Poppins",
                 }}
-                className="  py-10 overflow-y-scroll  w-[99vw] flex flex-col items-center gap-10">
+                className="  py-10 overflow-y-scroll h-[100dvh] w-[100vw] flex flex-col items-center gap-10">
                 <span className={` ${pageData?.background == "#fafaf9" ? "text-stone-600" : "text-stone-50"} text-center pt-5 w-[80vw]`}>
                     <h2 className="font-medium">{pageData?.name}</h2>
                     <h4 className="text-sm">{`@${pageData?.username}`}</h4>

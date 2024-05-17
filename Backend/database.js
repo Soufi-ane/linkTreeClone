@@ -19,7 +19,7 @@ const pool = mysql
 
 export async function findUser(ID) {
     const con = await pool.getConnection();
-    const user = await con.query("SELECT id FROM users WHERE id = ?", [ID]);
+    const [[user]] = await con.query("SELECT id FROM users WHERE id = ?", [ID]);
     con.release();
     return user;
 }

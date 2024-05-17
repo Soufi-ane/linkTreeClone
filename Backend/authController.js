@@ -10,8 +10,9 @@ export async function checkUser(req, res, next) {
         const encoded = await promisify(jwt.verify)(authorization, process.env.SECRET);
 
         const user = await findUser(encoded.id);
+        console.log(user?.id);
 
-        if (!user) throw new Error("User not found , please sign up");
+        if (!user?.id) throw new Error("User not found , please sign up");
     } catch (err) {
         next(err.message);
     }
