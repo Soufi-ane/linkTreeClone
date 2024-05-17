@@ -100,7 +100,7 @@ function NoLinkTree({ username }) {
                 There is no linkTree <br />
                 for <span>{`@${userN}`}</span>
             </span>
-            <Link className="text-blue-700 bg-blue-200 py-2 rounded-md px-10" to="/linkTreeClone">
+            <Link className="text-blue-700 bg-blue-200 py-2 rounded-md px-10" to="/">
                 Back home
             </Link>
         </div>

@@ -39,7 +39,7 @@ function Create() {
                 console.log(data.token);
             }
         } catch (err) {
-            console.log(err.message);
+            console.log(err);
             toast.dismiss();
             if (err.message == "Incorrect username or password") {
                 return toast.error(err.message);
