@@ -13,9 +13,9 @@ const pool = mysql
         waitForConnections: true,
     })
     .promise();
-pool.getConnection()
-    .then((con) => console.log("connected to the database"))
-    .catch((err) => console.log("error connecting to the database"));
+// pool.getConnection()
+//     .then((con) => console.log("connected to the database"))
+//     .catch((err) => console.log("error connecting to the database"));
 
 export async function findUser(ID) {
     const con = await pool.getConnection();
@@ -42,6 +42,7 @@ export async function getLinkTree(username) {
     const [links] = await con.query("SELECT url , bg_color  , radius , color , text FROM users JOIN links ON links.user_id = users.id WHERE username = ?  ;", [username]);
     const [[pageData]] = await con.query("SELECT name , username, background , font ,bio FROM users JOIN pages ON pages.user_id = users.id WHERE users.username = ?", [username]);
     con.release();
+    console.log("finished");
     return [pageData, links];
 }
 
